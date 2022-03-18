@@ -15,6 +15,8 @@ from threading import Timer
 app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "*"}}) # Acepta dede todas las direcciones con el *
 
+
+machine_ip = '192.168.56.1'
 json_data = ''
 
 
@@ -40,5 +42,5 @@ def executor():
 
 
 if __name__ == '__main__':
-    app.run(debug= True, host='192.168.130.79')
+    app.run(debug= True, host= machine_ip)
     # app.run(debug= True)
