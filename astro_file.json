@@ -1,5 +1,18 @@
 {
-    "astro_server" : "Atlas",
+    "astro_server" : "Astro",
     "version": 1,
-    "date_version": "" 
+    "date_version": "",
+    "employed":[
+        {
+            "id": "QXRsYW50ZQ==",
+            "name": "atlas",
+            "user_name": "YXRsYXM=",
+            "password": "UWFaMTIzNDUk",
+            "access": "root",
+            "visibility": false,
+            "state" : "Activo"
+        }        
+    ]
+    
+    
 }

@@ -32,33 +32,25 @@ clinic_history = [] # Historia Clínica
 
 astroDB = {}
 
-
-
-# read_file = open(str(server_file)+'.json').read()
-
-def creator():
-    global employed
-
-    
-    astro_file = open('/astro_file.json').read()
+def login_user(user):
+    print('Usr: ',user)
+    user_login = {}
+    print ("Añgg: ",user['user_name'])
+    astro_file = open('astro_file.json').read()
     file_json = json.loads(astro_file)
+    print("Astro: ", file_json)
+    for employed in file_json['employed']:
+        
+        if (employed['user_name'] == user['user_name']):
+            print('Found_User')
+            if (employed['password']== user['password']):
+                print('Password OK')
+                user_login = employed
+                return user_login
 
-    file_json['employed'] = employed
-    
-
-
-    with open('data.json', 'w') as outfile:
-        json.dump(astroDB,outfile)
-    
-    
-    number_version = astroDB['version']
-    new_version = number_version + 1
-    astroDB['version'] = new_version
-    
-
-
-    
-
+            else:
+                wrong = {"error": 'Login_Error' }
+                return wrong
 
 
 @app.route('/',methods=['GET'])
@@ -71,13 +63,22 @@ def executor():
     global json_data
     data_recived = request.json
     json_data = data_recived
+    astro_file = open('astro_file.json').read()
+    file_json = json.loads(astro_file)
+
+
     print('Solicitud')
     if 'action' in json_data:
-        print('Datos: ', json_data)
-        ans = {}
-        ans['emulacion'] = 'terminada'
-        print('Proob OK')
-        return ans
+
+        if json_data['action'] == 'login':
+            employed_login = login_user(json_data)
+            if employed_login:
+                print('Login OK')
+                return employed_login
+            else:
+                print('Login Error')
+                ans={"error": "Login Failed"}
+                return ans
 
 
 
