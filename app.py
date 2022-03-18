@@ -20,18 +20,60 @@ machine_ip = '192.168.56.1'
 json_data = ''
 
 
+# variables diccionario para el registro de información de la app
+employed = [] # Empleados
+client = [] # Clientes
+product = [] # Prodcutos
+supplie = [] # Insumos
+date = [] # Citas
+machine = [] # Máquinas
+clinic_history = [] # Historia Clínica
+
+
+astroDB = {}
+
+
+
+# read_file = open(str(server_file)+'.json').read()
+
+def creator():
+    global employed
+
+    
+    astro_file = open('/astro_file.json').read()
+    file_json = json.loads(astro_file)
+
+    file_json['employed'] = employed
+    
+
+
+    with open('data.json', 'w') as outfile:
+        json.dump(astroDB,outfile)
+    
+    
+    number_version = astroDB['version']
+    new_version = number_version + 1
+    astroDB['version'] = new_version
+    
+
+
+    
+
+
+
 @app.route('/',methods=['GET'])
 def get():
-    return 'Body Laser Server by Atlas - SOLEMDev S.A.S.'
+    return 'ASTRO Server by Atlas - SOLEMDev S.A.S.'
 
 
 @app.route('/',methods=['POST'])
 def executor():
     global json_data
-    content = request.json
-    json_data = content
+    data_recived = request.json
+    json_data = data_recived
     print('Solicitud')
     if 'action' in json_data:
+        print('Datos: ', json_data)
         ans = {}
         ans['emulacion'] = 'terminada'
         print('Proob OK')
